@@ -10,7 +10,7 @@ jobs:
           if [ -f Cargo.toml ]; then
             sudo apt-get update -y
             rustup update stable
-            cargo test --locked
+            cargo test
           elif [ -f package.json ]; then
             corepack enable # yarn/pnpm 対応
             (yarn --version >/dev/null 2>&1 && yarn install --immutable) || npm ci
