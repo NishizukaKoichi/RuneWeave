@@ -1,13 +1,12 @@
-use crate::types::{Plan, Result, RuneWeaveError, ServiceType};
+use crate::types::{Plan, Result, ServiceType};
 use rand::SeedableRng;
 use rand_chacha::ChaCha8Rng;
-use std::collections::HashMap;
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use tera::{Context, Tera};
 
 pub fn generate_scaffold(plan: &Plan, seed: u64, output_dir: &Path) -> Result<Vec<String>> {
-    let mut rng = ChaCha8Rng::seed_from_u64(seed);
+    let _rng = ChaCha8Rng::seed_from_u64(seed);
     let mut files_generated = Vec::new();
 
     fs::create_dir_all(output_dir)?;
@@ -447,13 +446,13 @@ tracing-subscriber = {{ workspace = true }}
     files.push(format!("tools/{}/Cargo.toml", tool.name));
 
     let main_content = format!(
-        r#"//! {}
+        r#"//! {description}
 
 use clap::Parser;
 use anyhow::Result;
 
 #[derive(Parser)]
-#[command(name = "{}", about = "{}", version)]
+#[command(name = "{name}", about = "{description}", version)]
 struct Cli {{
     #[arg(short, long, help = "Enable verbose output")]
     verbose: bool,
@@ -473,14 +472,13 @@ async fn main() -> Result<()> {{
             .init();
     }}
 
-    tracing::info!("Running {}", env!("CARGO_PKG_NAME"));
+    tracing::info!("Running {{}}", env!("CARGO_PKG_NAME"));
     
     Ok(())
 }}
 "#,
-        tool.description,
-        tool.name,
-        tool.description,
+        description = tool.description,
+        name = tool.name,
     );
 
     let src_dir = tool_dir.join("src");
@@ -616,6 +614,6 @@ jobs:
     Ok(())
 }
 
-fn load_templates(tera: &mut Tera) -> Result<()> {
+fn load_templates(_tera: &mut Tera) -> Result<()> {
     Ok(())
 }

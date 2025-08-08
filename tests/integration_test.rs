@@ -1,5 +1,4 @@
 use std::fs;
-use std::path::PathBuf;
 use tempfile::TempDir;
 
 #[test]
@@ -62,7 +61,7 @@ fn test_scaffold_generation() {
 #[test]
 fn test_deterministic_generation() {
     // Test that same seed produces same output
-    let plan = runeweave::types::Plan {
+    let _plan = runeweave::types::Plan {
         project: runeweave::types::ProjectConfig {
             name: "deterministic-test".to_string(),
             description: "Test deterministic generation".to_string(),

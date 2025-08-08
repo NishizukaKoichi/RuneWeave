@@ -1,7 +1,6 @@
 use chrono::{DateTime, Utc};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 use std::path::PathBuf;
 
 #[derive(Debug, Clone, Serialize, Deserialize, JsonSchema)]
@@ -67,6 +66,7 @@ pub struct EdgeConfig {
 
 #[derive(Debug, Clone, Serialize, Deserialize, JsonSchema)]
 pub struct PlanMetadata {
+    #[schemars(with = "String")]
     pub created_at: DateTime<Utc>,
     pub runeforge_version: String,
     pub schema_version: String,

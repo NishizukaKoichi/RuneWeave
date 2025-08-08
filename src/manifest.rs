@@ -1,8 +1,6 @@
 use crate::types::{Plan, Result, ToolchainInfo, WeaveManifest};
 use chrono::Utc;
 use sha2::{Digest, Sha256};
-use std::fs;
-use std::path::Path;
 
 pub fn create_manifest(plan: &Plan, files: &[String], seed: u64) -> Result<WeaveManifest> {
     let template_hash = calculate_template_hash(files)?;
