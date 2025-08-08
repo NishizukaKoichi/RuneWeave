@@ -1,0 +1,38 @@
+# RuneWeave Policy Example
+# This file defines constraints and requirements for generated projects
+
+# Dependencies that are explicitly allowed (if specified, only these are allowed)
+allowed_dependencies:
+  - serde
+  - serde_json
+  - tokio
+  - actix-web
+  - worker
+  - sqlx
+  - chrono
+  - anyhow
+  - thiserror
+  - clap
+  - tracing
+  - tracing-subscriber
+
+# Dependencies that are banned (cannot be used)
+banned_dependencies:
+  - openssl  # Use rustls instead
+  - native-tls  # Use rustls-tls instead
+
+# Allowed licenses for the project
+allowed_licenses:
+  - MIT
+  - Apache-2.0
+  - "MIT OR Apache-2.0"
+  - BSD-3-Clause
+  - ISC
+
+# Features that must be present in at least one service
+required_features:
+  - auth
+  - metrics
+
+# Maximum crate size in MB
+max_crate_size_mb: 50

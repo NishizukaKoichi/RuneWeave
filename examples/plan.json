@@ -1,0 +1,53 @@
+{
+  "project": {
+    "name": "my-edge-product",
+    "description": "A sample Rust-Edge monorepo",
+    "version": "0.1.0",
+    "rust_version": "1.80",
+    "repository": "https://github.com/example/my-edge-product",
+    "license": "MIT"
+  },
+  "services": [
+    {
+      "name": "api",
+      "service_type": "api",
+      "description": "Main API service using Actix Web",
+      "dependencies": ["serde", "tokio", "sqlx"],
+      "features": ["auth", "metrics"]
+    },
+    {
+      "name": "api-edge",
+      "service_type": "api_edge",
+      "description": "Edge API service using Workers",
+      "dependencies": ["serde", "worker"],
+      "features": ["cache", "kv-store"]
+    },
+    {
+      "name": "shared",
+      "service_type": "library",
+      "description": "Shared utilities and types",
+      "dependencies": ["serde", "chrono"]
+    }
+  ],
+  "tools": [
+    {
+      "name": "cli",
+      "description": "Command-line tool for managing the product"
+    }
+  ],
+  "infrastructure": {
+    "ci": {
+      "provider": "github-actions",
+      "features": ["test", "build", "sbom", "sign"]
+    },
+    "edge": {
+      "provider": "cloudflare-workers",
+      "regions": ["auto"]
+    }
+  },
+  "metadata": {
+    "created_at": "2025-01-01T00:00:00Z",
+    "runeforge_version": "0.1.0",
+    "schema_version": "1.0.0"
+  }
+}
