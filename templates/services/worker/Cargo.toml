@@ -1,0 +1,16 @@
+[package]
+name = "{{ service.name }}"
+version = "{{ project.version }}"
+edition = "2021"
+rust-version = "{{ project.rust_version | default(value="1.80") }}"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+{%- for dep in service.dependencies | default(value=[]) %}
+{%- if dep not in ["serde", "serde_json", "anyhow", "thiserror"] %}
+{{ dep }} = "*"
+{%- endif %}
+{%- endfor %}

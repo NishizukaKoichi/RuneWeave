@@ -1,0 +1,5 @@
+[toolchain]
+channel = "{{ project.rust_version | default(value="stable") }}"
+components = ["rustfmt", "clippy"]
+targets = ["wasm32-unknown-unknown", "x86_64-unknown-linux-musl"]
+profile = "minimal"

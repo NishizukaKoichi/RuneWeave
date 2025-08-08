@@ -79,9 +79,10 @@ async fn main() -> Result<()> {
                     eprintln!("Error: {}", e);
                     match e.downcast_ref::<types::RuneWeaveError>() {
                         Some(types::RuneWeaveError::SchemaValidation(_)) => 1,
-                        Some(types::RuneWeaveError::PolicyViolation(_)) => 2,
+                        Some(types::RuneWeaveError::PolicyViolation(_)) | 
+                        Some(types::RuneWeaveError::BuildVerification(_)) => 2,
                         Some(types::RuneWeaveError::GitError(_)) => 3,
-                        _ => 4,
+                        _ => 3, // Default to 3 for any other errors
                     }
                 }
             }

@@ -97,22 +97,32 @@ pub fn verify_build(project_dir: &Path) -> Result<()> {
         ));
     }
 
-    let wrangler_path = project_dir.join("services/api-edge/wrangler.toml");
-    if wrangler_path.exists() {
-        let output = Command::new("wrangler")
-            .arg("validate")
-            .current_dir(project_dir.join("services/api-edge"))
-            .output();
+    // Check all edge services for wrangler.toml
+    let services_dir = project_dir.join("services");
+    if services_dir.exists() {
+        for entry in std::fs::read_dir(&services_dir)? {
+            let entry = entry?;
+            let service_path = entry.path();
+            let wrangler_path = service_path.join("wrangler.toml");
+            
+            if wrangler_path.exists() {
+                let output = Command::new("wrangler")
+                    .arg("validate")
+                    .current_dir(&service_path)
+                    .output()
+                    .map_err(|e| RuneWeaveError::BuildVerification(
+                        format!("Failed to run wrangler validate: {}", e)
+                    ))?;
 
-        match output {
-            Ok(output) if !output.status.success() => {
-                let stderr = String::from_utf8_lossy(&output.stderr);
-                eprintln!("⚠️  wrangler validate failed (non-fatal):\n{}", stderr);
+                if !output.status.success() {
+                    let stderr = String::from_utf8_lossy(&output.stderr);
+                    return Err(RuneWeaveError::BuildVerification(
+                        format!("wrangler validate failed:\n{}", stderr),
+                    ));
+                }
+                
+                println!("✓ wrangler validate passed for {}", service_path.file_name().unwrap().to_string_lossy());
             }
-            Err(e) => {
-                eprintln!("⚠️  wrangler not found or failed (non-fatal): {}", e);
-            }
-            _ => println!("✓ wrangler validate passed"),
         }
     }
 
