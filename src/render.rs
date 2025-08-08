@@ -153,7 +153,7 @@ fn load_templates(tera: &mut Tera) -> Result<()> {
         .join("../../../templates");
 
     // If running in development, use the project templates directory
-    let template_dir = if template_dir.exists() {
+    let _template_dir = if template_dir.exists() {
         template_dir
     } else {
         std::path::PathBuf::from("templates")
