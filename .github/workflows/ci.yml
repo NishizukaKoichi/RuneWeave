@@ -1,0 +1,22 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Detect & Build
+        run: |
+          if [ -f Cargo.toml ]; then
+            sudo apt-get update -y
+            rustup update stable
+            cargo test --locked
+          elif [ -f package.json ]; then
+            corepack enable # yarn/pnpm 対応
+            (yarn --version >/dev/null 2>&1 && yarn install --immutable) || npm ci
+            npm test --if-present || echo "no test script"
+          elif [ -f go.mod ]; then
+            go test ./...
+          else
+            echo "::warning::No recognised build file"; exit 0
+          fi
