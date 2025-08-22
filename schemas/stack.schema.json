@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StackPlan",
+  "type": "object",
+  "required": ["project", "services", "toolchain"],
+  "properties": {
+    "project": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Service"
+      }
+    },
+    "toolchain": {
+      "$ref": "#/definitions/ToolchainConfig"
+    }
+  },
+  "definitions": {
+    "Service": {
+      "type": "object",
+      "required": ["name", "type", "dependencies"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["api", "api-edge", "cli"]
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ToolchainConfig": {
+      "type": "object",
+      "required": ["rust_version", "targets"],
+      "properties": {
+        "rust_version": {
+          "type": "string"
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

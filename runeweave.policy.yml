@@ -1,0 +1,15 @@
+version: 1
+deny:
+  licenses: ["AGPL-3.0"]
+  crates: ["openssl-sys"]
+pin:
+  rust_toolchain: "stable"
+  msrv: "1.80"
+  worker_target: "wasm32-unknown-unknown"
+ci:
+  linux_runner: "ubuntu-24.04"
+  sbom: true
+  cosign: true
+naming:
+  project: "kebab-case"
+  service: "kebab-case"

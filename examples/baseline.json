@@ -1,0 +1,19 @@
+{
+  "project": "baseline-app",
+  "services": [
+    {
+      "name": "api",
+      "type": "api",
+      "dependencies": []
+    },
+    {
+      "name": "api-edge",
+      "type": "api-edge",
+      "dependencies": []
+    }
+  ],
+  "toolchain": {
+    "rust_version": "1.80",
+    "targets": ["wasm32-unknown-unknown"]
+  }
+}
