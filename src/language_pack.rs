@@ -551,6 +551,30 @@ impl LanguagePack for JavaPack {
         let src_main = service_dir.join("src/main/java/com/example");
         std::fs::create_dir_all(&src_main)?;
 
+        // Application.java
+        let app_content = r#"package com.example;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+@RestController
+public class Application {
+    
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+    
+    @GetMapping("/healthz")
+    public String healthz() {
+        return "{\"status\":\"healthy\"}";
+    }
+}
+"#;
+        std::fs::write(src_main.join("Application.java"), app_content)?;
+
         Ok(())
     }
 }

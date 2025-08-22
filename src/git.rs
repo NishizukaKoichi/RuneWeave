@@ -7,6 +7,7 @@ use anyhow::Context;
 use git2::{Repository, Signature};
 
 pub struct GitOps {
+    #[allow(dead_code)]
     pub repo_url: String,
 }
 
