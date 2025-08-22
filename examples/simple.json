@@ -1,0 +1,18 @@
+{
+  "project": "simple-example",
+  "services": [
+    {
+      "name": "api",
+      "language": "rust",
+      "framework": "actix",
+      "runtime": null,
+      "dependencies": []
+    }
+  ],
+  "toolchain": {
+    "rust": {
+      "version": "1.82",
+      "targets": []
+    }
+  }
+}
