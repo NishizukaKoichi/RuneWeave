@@ -113,7 +113,7 @@ async fn main(req: Request, env: Env, _ctx: Context) -> Result<Response> {
             "framework",
             &service.framework.as_deref().unwrap_or("actix"),
         );
-        
+
         // Add rust_version from toolchain config
         if let Some(toolchain) = ctx.get("toolchain") {
             if let Some(rust_toolchain) = toolchain.get("rust") {
