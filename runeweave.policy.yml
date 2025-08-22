@@ -2,10 +2,19 @@ version: 1
 deny:
   licenses: ["AGPL-3.0"]
   crates: ["openssl-sys"]
+  npm: ["left-pad@*"]
+  pypi: ["cryptography<42.0"]
 pin:
-  rust_toolchain: "stable"
-  msrv: "1.80"
-  worker_target: "wasm32-unknown-unknown"
+  rust:
+    msrv: "1.82"
+  node:
+    version: "22.6.0"
+  python:
+    version: "3.12.6"
+  go:
+    version: "1.22.5"
+  java:
+    version: "21"
 ci:
   linux_runner: "ubuntu-24.04"
   sbom: true

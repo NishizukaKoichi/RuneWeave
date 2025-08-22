@@ -4,6 +4,7 @@ use tracing::info;
 
 mod cli;
 mod git;
+mod language_pack;
 mod manifest;
 mod render;
 mod verify;
@@ -61,10 +62,18 @@ fn main() -> Result<()> {
 
             // Generate manifest
             let plan_content = std::fs::read_to_string(&plan)?;
+            let rust_version = ctx
+                .plan
+                .toolchain
+                .rust
+                .as_ref()
+                .map(|r| r.version.clone())
+                .unwrap_or_else(|| "1.82".to_string());
+
             let manifest = generate_manifest(
                 &plan_content,
                 seed,
-                &ctx.plan.toolchain.rust_version,
+                &rust_version,
                 "1.0.0", // template version
             )?;
             write_manifest(&manifest, &out)?;

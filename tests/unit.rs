@@ -15,18 +15,27 @@ mod tests {
             "services": [
                 {
                     "name": "api",
-                    "type": "api",
+                    "language": "rust",
+                    "framework": "actix",
+                    "runtime": null,
                     "dependencies": []
                 },
                 {
                     "name": "api-edge",
-                    "type": "api-edge",
+                    "language": "node",
+                    "framework": "hono",
+                    "runtime": "cloudflare",
                     "dependencies": []
                 }
             ],
             "toolchain": {
-                "rust_version": "1.80",
-                "targets": ["wasm32-unknown-unknown"]
+                "rust": {
+                    "version": "1.82",
+                    "targets": ["wasm32-unknown-unknown"]
+                },
+                "node": {
+                    "version": "22.6.0"
+                }
             }
         }"#;
 

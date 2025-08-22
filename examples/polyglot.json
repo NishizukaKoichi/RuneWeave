@@ -1,0 +1,55 @@
+{
+  "project": "polyglot-app",
+  "services": [
+    {
+      "name": "api-rs",
+      "language": "rust",
+      "framework": "actix",
+      "runtime": null,
+      "dependencies": []
+    },
+    {
+      "name": "api-ts",
+      "language": "node",
+      "framework": "fastify",
+      "runtime": null,
+      "dependencies": []
+    },
+    {
+      "name": "worker-cf",
+      "language": "node",
+      "framework": "hono",
+      "runtime": "cloudflare",
+      "dependencies": []
+    },
+    {
+      "name": "job-py",
+      "language": "python",
+      "framework": "fastapi",
+      "runtime": null,
+      "dependencies": []
+    },
+    {
+      "name": "job-go",
+      "language": "go",
+      "framework": "gin",
+      "runtime": null,
+      "dependencies": []
+    }
+  ],
+  "toolchain": {
+    "rust": {
+      "version": "1.82",
+      "targets": ["wasm32-unknown-unknown"]
+    },
+    "node": {
+      "version": "22.6.0"
+    },
+    "python": {
+      "version": "3.12.6"
+    },
+    "go": {
+      "version": "1.22.5"
+    }
+  }
+}

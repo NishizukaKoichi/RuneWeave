@@ -1,10 +1,10 @@
 [package]
 name = "runeweave"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 rust-version = "1.80"
 license = "MIT OR Apache-2.0"
-description = "Rust-Edge monorepo scaffolding tool"
+description = "Polyglot monorepo scaffolding tool for cloud-native and edge environments"
 repository = "https://github.com/NishizukaKoichi/RuneWeave"
 
 [dependencies]

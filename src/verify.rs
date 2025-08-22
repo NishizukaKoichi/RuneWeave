@@ -13,22 +13,64 @@ pub struct StackPlan {
 #[derive(Debug, Serialize, Deserialize, schemars::JsonSchema)]
 pub struct Service {
     pub name: String,
-    pub r#type: ServiceType,
+    pub language: Language,
+    pub framework: Option<String>,
+    pub runtime: Option<String>,
     pub dependencies: Vec<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize, schemars::JsonSchema)]
-#[serde(rename_all = "kebab-case")]
-pub enum ServiceType {
-    Api,
-    ApiEdge,
-    Cli,
+#[derive(Debug, Serialize, Deserialize, schemars::JsonSchema, Clone)]
+#[serde(rename_all = "lowercase")]
+pub enum Language {
+    Rust,
+    Node,
+    Python,
+    Go,
+    Java,
+    #[serde(rename = "dotnet")]
+    DotNet,
+    Deno,
 }
 
 #[derive(Debug, Serialize, Deserialize, schemars::JsonSchema)]
 pub struct ToolchainConfig {
-    pub rust_version: String,
+    pub rust: Option<RustToolchain>,
+    pub node: Option<NodeToolchain>,
+    pub python: Option<PythonToolchain>,
+    pub go: Option<GoToolchain>,
+    pub java: Option<JavaToolchain>,
+    pub dotnet: Option<DotNetToolchain>,
+}
+
+#[derive(Debug, Serialize, Deserialize, schemars::JsonSchema)]
+pub struct RustToolchain {
+    pub version: String,
     pub targets: Vec<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize, schemars::JsonSchema)]
+pub struct NodeToolchain {
+    pub version: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, schemars::JsonSchema)]
+pub struct PythonToolchain {
+    pub version: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, schemars::JsonSchema)]
+pub struct GoToolchain {
+    pub version: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, schemars::JsonSchema)]
+pub struct JavaToolchain {
+    pub version: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, schemars::JsonSchema)]
+pub struct DotNetToolchain {
+    pub version: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -42,15 +84,44 @@ pub struct Policy {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DenyPolicy {
-    pub licenses: Vec<String>,
-    pub crates: Vec<String>,
+    pub licenses: Option<Vec<String>>,
+    pub crates: Option<Vec<String>>,
+    pub npm: Option<Vec<String>>,
+    pub pypi: Option<Vec<String>>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PinPolicy {
-    pub rust_toolchain: String,
+    pub rust: Option<RustPin>,
+    pub node: Option<NodePin>,
+    pub python: Option<PythonPin>,
+    pub go: Option<GoPin>,
+    pub java: Option<JavaPin>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct RustPin {
     pub msrv: String,
-    pub worker_target: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct NodePin {
+    pub version: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct PythonPin {
+    pub version: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct GoPin {
+    pub version: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct JavaPin {
+    pub version: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
