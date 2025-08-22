@@ -49,7 +49,7 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@1fbea72663f6d4c03efaab13560c8a24cfd2a7cc # v1.9.0
         with:
           toolchain: stable
-          targets: wasm32-unknown-unknown
+          target: wasm32-unknown-unknown
           
       - name: Build native
         run: cargo build --all --release
@@ -122,7 +122,7 @@ jobs:
           
       - name: Setup Python
         if: matrix.language == 'python'
-        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90ab5 # v5.3.0
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
           python-version: '3.12'
           
