@@ -35,6 +35,13 @@
       "framework": "gin",
       "runtime": null,
       "dependencies": []
+    },
+    {
+      "name": "api-java",
+      "language": "java",
+      "framework": "spring",
+      "runtime": null,
+      "dependencies": []
     }
   ],
   "toolchain": {
@@ -50,6 +57,9 @@
     },
     "go": {
       "version": "1.22.5"
+    },
+    "java": {
+      "version": "21"
     }
   }
 }

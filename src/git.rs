@@ -1,6 +1,10 @@
-use anyhow::{Context, Result};
-use git2::{Repository, Signature};
+use anyhow::Result;
 use std::path::Path;
+
+#[cfg(not(target_arch = "wasm32"))]
+use anyhow::Context;
+#[cfg(not(target_arch = "wasm32"))]
+use git2::{Repository, Signature};
 
 pub struct GitOps {
     pub repo_url: String,
@@ -27,6 +31,7 @@ impl GitOps {
         Ok(Self { repo_url })
     }
 
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn push_to_repo(&self, local_path: &Path, branch_name: &str) -> Result<()> {
         // Initialize git repo
         let repo = Repository::init(local_path).context("Failed to initialize git repository")?;
@@ -62,5 +67,10 @@ impl GitOps {
         println!("To push: cd {local_path:?} && git push -u origin {branch_name}");
 
         Ok(())
+    }
+
+    #[cfg(target_arch = "wasm32")]
+    pub fn push_to_repo(&self, _local_path: &Path, _branch_name: &str) -> Result<()> {
+        anyhow::bail!("Git operations are not supported in WASM")
     }
 }
